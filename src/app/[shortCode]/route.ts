@@ -18,7 +18,7 @@ export async function GET(
     }
 
     // Track click asynchronously
-    const headersList = headers()
+    const headersList = await headers()
     const userAgent = headersList.get('user-agent') || ''
     const referer = headersList.get('referer') || null
 
