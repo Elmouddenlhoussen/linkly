@@ -3,10 +3,14 @@ import { prisma } from '@/lib/prisma'
 import { headers } from 'next/headers'
 import UAParser from 'ua-parser-js'
 
-export async function GET(req: Request, { params }: { params: { shortCode: string } }) {
+export async function GET(
+  req: Request,
+  { params }: { params: Promise<{ shortCode: string }> }
+) {
   try {
+    const { shortCode } = await params
     const link = await prisma.link.findUnique({
-      where: { shortCode: params.shortCode },
+      where: { shortCode },
     })
 
     if (!link || !link.isActive) {

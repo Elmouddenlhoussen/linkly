@@ -10,15 +10,19 @@ const updateLinkSchema = z.object({
   isActive: z.boolean().optional(),
 })
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
+    const { id } = await params
     const session = await getServerSession(authOptions)
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const link = await prisma.link.findFirst({
-      where: { id: params.id, userId: session.user.id },
+      where: { id, userId: session.user.id },
       include: {
         events: {
           orderBy: { timestamp: 'desc' },
@@ -37,8 +41,12 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
+    const { id } = await params
     const session = await getServerSession(authOptions)
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -48,7 +56,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     const data = updateLinkSchema.parse(body)
 
     const link = await prisma.link.findFirst({
-      where: { id: params.id, userId: session.user.id },
+      where: { id, userId: session.user.id },
     })
 
     if (!link) {
@@ -56,7 +64,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     }
 
     const updated = await prisma.link.update({
-      where: { id: params.id },
+      where: { id },
       data,
     })
 
@@ -69,22 +77,26 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
+    const { id } = await params
     const session = await getServerSession(authOptions)
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const link = await prisma.link.findFirst({
-      where: { id: params.id, userId: session.user.id },
+      where: { id, userId: session.user.id },
     })
 
     if (!link) {
       return NextResponse.json({ error: 'Link not found' }, { status: 404 })
     }
 
-    await prisma.link.delete({ where: { id: params.id } })
+    await prisma.link.delete({ where: { id } })
 
     return NextResponse.json({ success: true })
   } catch (error) {
