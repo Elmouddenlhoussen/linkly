@@ -11,7 +11,6 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: '/login',
-    signUp: '/register',
   },
   providers: [
     CredentialsProvider({
@@ -51,6 +50,18 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.sub!
+        
+        // Fetch user data to include image
+        const user = await prisma.user.findUnique({
+          where: { id: token.sub! },
+          select: { image: true, name: true, email: true }
+        })
+        
+        if (user) {
+          session.user.image = user.image
+          session.user.name = user.name
+          session.user.email = user.email
+        }
       }
       return session
     },

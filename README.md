@@ -15,6 +15,8 @@
 
 </div>
 
+> **Portfolio Demo Project** - This is a showcase of a production-ready SaaS application built by [Elmoudden Lhoussaine](https://github.com/Elmouddenlhoussen) for portfolio demonstration purposes.
+
 ---
 
 ## ⚠️ Test Mode Notice
@@ -33,7 +35,7 @@ Full-Stack Developer | Morocco 🇲🇦
 
 [![GitHub](https://img.shields.io/badge/GitHub-Elmouddenlhoussen-181717?style=flat-square&logo=github)](https://github.com/Elmouddenlhoussen)
 
-This project showcases modern web development practices and production-ready SaaS architecture.
+This project showcases modern web development practices and production-ready SaaS architecture. It serves as a portfolio demonstration of full-stack development skills with real-world SaaS features.
 
 ---
 
@@ -495,6 +497,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Development Time**: 6 weeks
 - **Technologies**: 15+
 
+> **Portfolio Ready**: Complete with responsive design, dark mode, and production-ready code suitable for showcasing full-stack development skills.
+
 ---
 
 <div align="center">
@@ -506,6 +510,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ⭐ Star this repo if you find it helpful!
 
 </div>
+
+---
+
+## 🎓 Portfolio Showcase
+
+This project demonstrates:
+
+- **Full-Stack Development Skills**: Next.js, TypeScript, Prisma, PostgreSQL
+- **Modern UI/UX Design**: Tailwind CSS, Framer Motion, Responsive Design
+- **SaaS Architecture**: Authentication, Payments, Subscriptions
+- **Production Readiness**: Security, Performance, Error Handling
+- **DevOps Knowledge**: Deployment, Environment Management
 
 
 ---

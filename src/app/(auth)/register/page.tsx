@@ -42,28 +42,28 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 relative overflow-hidden max-w-full w-full">
       {/* Background decoration */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
       
-      <div className="w-full max-w-md relative z-10">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-3 mb-8">
-            <div className="relative">
+      <div className="w-full max-w-md relative z-10 max-w-full overflow-hidden">
+        <div className="text-center mb-8 max-w-full overflow-hidden">
+          <Link href="/" className="inline-flex items-center gap-3 mb-8 max-w-full overflow-hidden">
+            <div className="relative max-w-full overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl blur opacity-75"></div>
-              <div className="relative w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Link2 className="w-6 h-6 text-white" />
+              <div className="relative w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg max-w-full overflow-hidden">
+                <Link2 className="w-6 h-6 text-white max-w-full overflow-hidden" />
               </div>
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Linkly</span>
+            <span className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent max-w-full overflow-hidden truncate">Linkly</span>
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Create your account</h1>
-          <p className="text-gray-600 dark:text-gray-400">Start shortening links in seconds</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 max-w-full overflow-hidden">Create your account</h1>
+          <p className="text-gray-600 dark:text-gray-400 max-w-full overflow-hidden">Start shortening links in seconds</p>
         </div>
 
-        <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-800/50 p-8">
-          <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-800/50 p-8 max-w-full overflow-hidden">
+          <form onSubmit={handleSubmit} className="space-y-5 max-w-full overflow-hidden">
             <Input
               id="name"
               label="Full Name"
@@ -72,6 +72,7 @@ export default function RegisterPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              className="max-w-full overflow-hidden"
             />
             <Input
               id="email"
@@ -81,6 +82,7 @@ export default function RegisterPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="max-w-full overflow-hidden"
             />
             <Input
               id="password"
@@ -91,16 +93,17 @@ export default function RegisterPage() {
               onChange={(e) => setPassword(e.target.value)}
               minLength={8}
               required
+              className="max-w-full overflow-hidden"
             />
-            <Button type="submit" loading={loading} className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-lg shadow-blue-500/25" size="lg">
+            <Button type="submit" loading={loading} className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-lg shadow-blue-500/25 max-w-full overflow-hidden" size="lg">
               Create account
             </Button>
           </form>
         </div>
 
-        <p className="text-center mt-6 text-gray-600 dark:text-gray-400">
+        <p className="text-center mt-6 text-gray-600 dark:text-gray-400 max-w-full overflow-hidden truncate">
           Already have an account?{' '}
-          <Link href="/login" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+          <Link href="/login" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline max-w-full overflow-hidden truncate">
             Sign in
           </Link>
         </p>

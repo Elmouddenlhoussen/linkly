@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ArrowRight, ArrowLeft, MousePointer, Eye, Download } from 'lucide-react'
-import { Button } from './ui/button'
+import { Button } from '@/components/ui/button'
 
 interface OnboardingStep {
   title: string
@@ -50,6 +50,7 @@ export function OnboardingTour() {
   const [isOpen, setIsOpen] = useState(false)
   const [currentStep, setCurrentStep] = useState(0)
   const [highlightElement, setHighlightElement] = useState<HTMLElement | null>(null)
+  const tooltipRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const hasSeenTour = localStorage.getItem('linkly_tour_completed')
@@ -66,6 +67,19 @@ export function OnboardingTour() {
       setHighlightElement(null)
     }
   }, [currentStep, isOpen])
+
+  // Handle window resize to reposition tooltip
+  useEffect(() => {
+    if (!isOpen) return
+    
+    const handleResize = () => {
+      // Force re-render to recalculate positions
+      setCurrentStep(prev => prev)
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [isOpen])
 
   const handleNext = () => {
     if (currentStep < steps.length - 1) {
@@ -96,42 +110,104 @@ export function OnboardingTour() {
   const step = steps[currentStep]
   const progress = ((currentStep + 1) / steps.length) * 100
 
-  // Calculate tooltip position
+  // Calculate tooltip position with robust boundary detection
   const getTooltipPosition = () => {
     if (!highlightElement || !step.highlight) {
-      return { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
+      return { 
+        top: '50%', 
+        left: '50%', 
+        transform: 'translate(-50%, -50%)',
+        position: 'fixed' as const
+      }
     }
 
     const rect = highlightElement.getBoundingClientRect()
     const position = step.highlight.position
-
+    
+    // Tooltip dimensions (conservative estimates)
+    const tooltipWidth = 320
+    const tooltipHeight = 220
+    
+    // Viewport boundaries with safe padding
+    const padding = 20
+    const maxX = window.innerWidth - tooltipWidth - padding
+    const maxY = window.innerHeight - tooltipHeight - padding
+    
+    let top, left
+    
+    // Calculate preferred positions with smart fallbacks
     switch (position) {
       case 'bottom':
-        return {
-          top: `${rect.bottom + 20}px`,
-          left: `${rect.left + rect.width / 2}px`,
-          transform: 'translateX(-50%)',
+        // Try bottom first, then top if not enough space
+        if (rect.bottom + tooltipHeight + padding <= window.innerHeight) {
+          top = rect.bottom + padding
+        } else if (rect.top - tooltipHeight - padding >= 0) {
+          top = rect.top - tooltipHeight - padding
+        } else {
+          // Not enough space above or below, center vertically
+          top = Math.max(padding, (window.innerHeight - tooltipHeight) / 2)
         }
+        left = Math.max(padding, Math.min(rect.left + rect.width / 2 - tooltipWidth / 2, maxX))
+        break
+        
       case 'top':
-        return {
-          bottom: `${window.innerHeight - rect.top + 20}px`,
-          left: `${rect.left + rect.width / 2}px`,
-          transform: 'translateX(-50%)',
+        // Try top first, then bottom if not enough space
+        if (rect.top - tooltipHeight - padding >= 0) {
+          top = rect.top - tooltipHeight - padding
+        } else if (rect.bottom + tooltipHeight + padding <= window.innerHeight) {
+          top = rect.bottom + padding
+        } else {
+          // Not enough space above or below, center vertically
+          top = Math.max(padding, (window.innerHeight - tooltipHeight) / 2)
         }
+        left = Math.max(padding, Math.min(rect.left + rect.width / 2 - tooltipWidth / 2, maxX))
+        break
+        
       case 'left':
-        return {
-          top: `${rect.top + rect.height / 2}px`,
-          right: `${window.innerWidth - rect.left + 20}px`,
-          transform: 'translateY(-50%)',
+        // Try left first, then right if not enough space
+        if (rect.left - tooltipWidth - padding >= 0) {
+          left = rect.left - tooltipWidth - padding
+        } else if (rect.right + tooltipWidth + padding <= window.innerWidth) {
+          left = rect.right + padding
+        } else {
+          // Not enough space left or right, center horizontally
+          left = Math.max(padding, (window.innerWidth - tooltipWidth) / 2)
         }
+        top = Math.max(padding, Math.min(rect.top + rect.height / 2 - tooltipHeight / 2, maxY))
+        break
+        
       case 'right':
-        return {
-          top: `${rect.top + rect.height / 2}px`,
-          left: `${rect.right + 20}px`,
-          transform: 'translateY(-50%)',
+        // Try right first, then left if not enough space
+        if (rect.right + tooltipWidth + padding <= window.innerWidth) {
+          left = rect.right + padding
+        } else if (rect.left - tooltipWidth - padding >= 0) {
+          left = rect.left - tooltipWidth - padding
+        } else {
+          // Not enough space left or right, center horizontally
+          left = Math.max(padding, (window.innerWidth - tooltipWidth) / 2)
         }
+        top = Math.max(padding, Math.min(rect.top + rect.height / 2 - tooltipHeight / 2, maxY))
+        break
+        
+      default:
+        // Center fallback
+        top = Math.max(padding, (window.innerHeight - tooltipHeight) / 2)
+        left = Math.max(padding, (window.innerWidth - tooltipWidth) / 2)
+    }
+    
+    // Ensure tooltip stays within viewport boundaries
+    top = Math.max(padding, Math.min(top, maxY))
+    left = Math.max(padding, Math.min(left, maxX))
+    
+    return {
+      top: `${top}px`,
+      left: `${left}px`,
+      transform: 'none',
+      position: 'fixed' as const
     }
   }
+
+  const tooltipStyle = getTooltipPosition()
 
   return (
     <AnimatePresence>
@@ -149,10 +225,10 @@ export function OnboardingTour() {
               animate={{ opacity: 1, scale: 1 }}
               className="absolute pointer-events-none"
               style={{
-                top: highlightElement.getBoundingClientRect().top - 8,
-                left: highlightElement.getBoundingClientRect().left - 8,
-                width: highlightElement.getBoundingClientRect().width + 16,
-                height: highlightElement.getBoundingClientRect().height + 16,
+                top: Math.max(highlightElement.getBoundingClientRect().top - 8, 0),
+                left: Math.max(highlightElement.getBoundingClientRect().left - 8, 0),
+                width: Math.min(highlightElement.getBoundingClientRect().width + 16, window.innerWidth - 20),
+                height: Math.min(highlightElement.getBoundingClientRect().height + 16, window.innerHeight - 20),
                 boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.7), 0 0 20px 4px rgba(59, 130, 246, 0.5)',
                 borderRadius: '12px',
                 border: '3px solid rgb(59, 130, 246)',
@@ -178,13 +254,14 @@ export function OnboardingTour() {
 
         {/* Tooltip */}
         <motion.div
+          ref={tooltipRef}
           key={currentStep}
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: -20 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="absolute w-full max-w-md px-4"
-          style={highlightElement ? getTooltipPosition() : { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+          className="fixed w-full max-w-md z-50"
+          style={tooltipStyle}
         >
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden">
             {/* Progress bar */}
@@ -219,7 +296,7 @@ export function OnboardingTour() {
                 {step.description}
               </p>
 
-              {/* Visual indicators */}
+              {/* Visual indicators */}  
               <div className="flex items-center gap-4 mb-6 p-4 bg-blue-50 dark:bg-blue-950/30 rounded-xl border border-blue-100 dark:border-blue-900/50">
                 {currentStep === 1 && (
                   <>

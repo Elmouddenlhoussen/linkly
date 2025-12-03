@@ -72,27 +72,27 @@ export default async function DashboardPage() {
   return (
     <>
       <OnboardingTour />
-      <div className="space-y-8">
+      <div className="space-y-8 w-full max-w-full overflow-x-hidden">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 max-w-full overflow-x-hidden">
+          <div className="max-w-full overflow-x-hidden">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2 max-w-full overflow-x-hidden">
               Dashboard
             </h1>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-500 dark:text-gray-400 max-w-full overflow-x-hidden">
               Welcome back, {session?.user.name?.split(' ')[0] || 'there'}
             </p>
           </div>
-          <div data-tour="create-link">
+          <div data-tour="create-link" className="max-w-full overflow-x-hidden">
             <CreateLinkButton />
           </div>
         </div>
 
         {/* Demo Notice */}
         {!hasData && (
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border border-slate-200 dark:border-slate-700 p-8">
-            <div className="relative z-10">
-              <div className="flex items-start gap-4">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border border-slate-200 dark:border-slate-700 p-8 max-w-full overflow-x-hidden">
+            <div className="relative z-10 max-w-full overflow-x-hidden">
+              <div className="flex items-start gap-4 max-w-full overflow-x-hidden">
                 <div className="flex-shrink-0">
                   <div className="w-12 h-12 rounded-2xl bg-slate-900 dark:bg-slate-100 flex items-center justify-center">
                     <svg className="w-6 h-6 text-white dark:text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -100,25 +100,25 @@ export default async function DashboardPage() {
                     </svg>
                   </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                <div className="flex-1 max-w-full overflow-x-hidden">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 max-w-full overflow-x-hidden">
                     Demo Project - Portfolio Showcase
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4 max-w-full overflow-x-hidden">
                     This is a demonstration of a production-ready SaaS platform. Create your first link to see the analytics in action. 
                     Built by <a href="https://github.com/Elmouddenlhoussen" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-900 dark:text-white underline">Elmoudden Lhoussaine</a>.
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">
+                  <div className="flex flex-wrap gap-2 max-w-full overflow-x-hidden">
+                    <span className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300 max-w-full overflow-x-hidden">
                       Next.js 15
                     </span>
-                    <span className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">
+                    <span className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300 max-w-full overflow-x-hidden">
                       TypeScript
                     </span>
-                    <span className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">
+                    <span className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300 max-w-full overflow-x-hidden">
                       Prisma
                     </span>
-                    <span className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">
+                    <span className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300 max-w-full overflow-x-hidden">
                       Stripe
                     </span>
                   </div>
@@ -130,16 +130,16 @@ export default async function DashboardPage() {
         )}
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-tour="analytics">
-        <div className="group relative overflow-hidden rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300">
-          <div className="flex items-center justify-between mb-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-full overflow-x-hidden" data-tour="analytics">
+        <div className="group relative overflow-hidden rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 max-w-full overflow-x-hidden">
+          <div className="flex items-center justify-between mb-4 max-w-full overflow-x-hidden">
             <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
               <Link2 className="w-6 h-6 text-slate-600 dark:text-slate-400" />
             </div>
           </div>
-          <div className="space-y-1">
-            <p className="text-sm text-slate-500 dark:text-slate-400">Total Links</p>
-            <p className="text-3xl font-bold text-slate-900 dark:text-white">{formatNumber(data.linkCount)}</p>
+          <div className="space-y-1 max-w-full overflow-x-hidden">
+            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-full overflow-x-hidden">Total Links</p>
+            <p className="text-3xl font-bold text-slate-900 dark:text-white max-w-full overflow-x-hidden">{formatNumber(data.linkCount)}</p>
           </div>
           <div className="absolute bottom-0 right-0 w-32 h-32 bg-slate-100 dark:bg-slate-800 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         </div>
@@ -184,7 +184,7 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-2 gap-6 max-w-full overflow-x-hidden">
         <ClicksChart userId={session!.user.id} />
         <RecentLinks links={data.links} />
       </div>

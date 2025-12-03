@@ -8,11 +8,13 @@ import { Button } from '@/components/ui/button'
 import { useTheme } from '@/components/theme-provider'
 import { Sun, Moon, Monitor } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { ProfilePictureUpload } from '@/components/profile-picture-upload'
 
 export default function SettingsPage() {
   const { data: session, update } = useSession()
   const { theme, setTheme } = useTheme()
   const [name, setName] = useState(session?.user?.name || '')
+  const [image, setImage] = useState(session?.user?.image || '')
   const [loading, setLoading] = useState(false)
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
@@ -23,18 +25,22 @@ export default function SettingsPage() {
       const res = await fetch('/api/user', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, image }),
       })
 
       if (!res.ok) throw new Error('Failed to update profile')
 
-      await update({ name })
+      await update({ name, image })
       toast.success('Profile updated!')
     } catch (error) {
       toast.error('Failed to update profile')
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleImageUpdate = (imageUrl: string) => {
+    setImage(imageUrl)
   }
 
   const themes = [
@@ -56,22 +62,32 @@ export default function SettingsPage() {
           <CardTitle>Profile</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleUpdateProfile} className="space-y-4">
-            <Input
-              id="name"
-              label="Name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <Input
-              id="email"
-              label="Email"
-              type="email"
-              value={session?.user?.email || ''}
-              disabled
-              className="bg-gray-50 dark:bg-gray-800"
-            />
+          <form onSubmit={handleUpdateProfile} className="space-y-6">
+            <div className="flex flex-col sm:flex-row gap-6">
+              <ProfilePictureUpload 
+                currentImage={session?.user?.image} 
+                onImageUpdate={handleImageUpdate} 
+              />
+              
+              <div className="flex-1 space-y-4">
+                <Input
+                  id="name"
+                  label="Name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <Input
+                  id="email"
+                  label="Email"
+                  type="email"
+                  value={session?.user?.email || ''}
+                  disabled
+                  className="bg-gray-50 dark:bg-gray-800"
+                />
+              </div>
+            </div>
+            
             <Button type="submit" loading={loading}>
               Save Changes
             </Button>

@@ -12,11 +12,16 @@ body {
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  max-width: 100vw;
+  overflow-wrap: break-word;
 }
 
 body {
   @apply bg-white dark:bg-slate-950 text-slate-900 dark:text-white;
   overflow-x: hidden;
+  max-width: 100vw;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* Modern scrollbar */

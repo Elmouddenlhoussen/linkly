@@ -13,6 +13,7 @@ interface HeaderProps {
   user: {
     name?: string | null
     email?: string | null
+    image?: string | null
   }
 }
 
@@ -50,10 +51,18 @@ export function Header({ user }: HeaderProps) {
             <HelpButton />
             <ThemeToggle />
             <div className="hidden sm:flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-blue-900 dark:to-cyan-900 flex items-center justify-center">
-                <span className="text-sm font-medium bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                  {user.name?.charAt(0) || user.email?.charAt(0) || 'U'}
-                </span>
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-blue-900 dark:to-cyan-900 flex items-center justify-center overflow-hidden">
+                {user.image ? (
+                  <img 
+                    src={user.image} 
+                    alt={user.name || 'User'} 
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-sm font-medium bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                    {user.name?.charAt(0) || user.email?.charAt(0) || 'U'}
+                  </span>
+                )}
               </div>
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{user.name || user.email}</span>
             </div>

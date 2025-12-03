@@ -15,12 +15,12 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   return (
     <SessionProviderWrapper>
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 w-full max-w-full overflow-x-hidden">
         <DemoBanner />
         <Sidebar />
-        <div className="lg:pl-72">
+        <div className="lg:pl-72 w-full max-w-full overflow-x-hidden">
           <Header user={session.user} />
-          <main className="p-6 sm:p-8">{children}</main>
+          <main className="p-6 sm:p-8 w-full max-w-full overflow-x-hidden">{children}</main>
         </div>
       </div>
     </SessionProviderWrapper>

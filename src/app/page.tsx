@@ -82,7 +82,7 @@ export default function HomePage() {
       </motion.nav>
 
       {/* Hero */}
-      <section className="relative py-20 sm:py-28 px-4 overflow-hidden scroll-mt-16">
+      <section className="relative py-20 sm:py-28 px-4 overflow-hidden scroll-mt-16 max-w-full" style={{ maxWidth: '100vw' }}>
         {/* Animated background */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(20,184,166,0.1),transparent_50%),radial-gradient(circle_at_70%_60%,rgba(251,191,36,0.08),transparent_50%)]"></div>
         
@@ -126,41 +126,42 @@ export default function HomePage() {
           className="absolute top-1/2 right-10 w-2 h-2 bg-rose-400 rounded-full blur-sm"
         />
         
-        <div className="max-w-6xl mx-auto relative">
+        <div className="max-w-6xl mx-auto relative w-full">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
+              className="max-w-full overflow-hidden"
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-50 dark:bg-teal-950/50 border border-teal-200 dark:border-teal-800 text-sm font-medium text-teal-700 dark:text-teal-300 mb-6"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-50 dark:bg-teal-950/50 border border-teal-200 dark:border-teal-800 text-sm font-medium text-teal-700 dark:text-teal-300 mb-6 max-w-full overflow-hidden"
               >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
                 </span>
-                Production-ready platform
+                <span className="truncate">Production-ready platform</span>
               </motion.div>
               
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight leading-tight">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight leading-tight max-w-full overflow-hidden">
                 Short links,
                 <br />
                 <span className="text-teal-600 dark:text-teal-400">big insights</span>
               </h1>
               
-              <p className="text-xl text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+              <p className="text-xl text-slate-600 dark:text-slate-400 mb-8 leading-relaxed max-w-full overflow-hidden">
                 Transform long URLs into powerful marketing tools. Track every click, understand your audience, and optimize your campaigns.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 max-w-full overflow-hidden">
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link
                     href="/register"
-                    className="group inline-flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-xl shadow-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/40"
+                    className="group inline-flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-xl shadow-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/40 max-w-full truncate"
                   >
                     Start for free
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -169,7 +170,7 @@ export default function HomePage() {
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link
                     href="/pricing"
-                    className="inline-flex items-center justify-center border-2 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white px-8 py-4 rounded-xl font-semibold hover:border-teal-300 dark:hover:border-teal-700 hover:bg-teal-50 dark:hover:bg-teal-950/30 transition-all"
+                    className="inline-flex items-center justify-center border-2 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white px-8 py-4 rounded-xl font-semibold hover:border-teal-300 dark:hover:border-teal-700 hover:bg-teal-50 dark:hover:bg-teal-950/30 transition-all max-w-full truncate"
                   >
                     View pricing
                   </Link>
@@ -198,7 +199,7 @@ export default function HomePage() {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
+              className="relative max-w-full overflow-hidden"
             >
               <div className="relative bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-2xl">
                 <div className="space-y-4">
@@ -248,18 +249,18 @@ export default function HomePage() {
 
       {/* Features Grid */}
       <section className="py-20 px-4 bg-slate-50 dark:bg-slate-900/50 scroll-mt-16">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto w-full">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-16 max-w-full overflow-hidden"
           >
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4 max-w-full overflow-hidden">
               Everything you need to succeed
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto max-w-full overflow-hidden">
               Professional link management with enterprise-grade features
             </p>
           </motion.div>
@@ -332,17 +333,17 @@ export default function HomePage() {
 
       {/* How it works */}
       <section className="py-20 px-4 scroll-mt-16">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-16 max-w-full overflow-hidden"
           >
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4 max-w-full overflow-hidden">
               How it works
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-full overflow-hidden">
               Get started in three simple steps
             </p>
           </motion.div>
@@ -375,17 +376,17 @@ export default function HomePage() {
 
       {/* Pricing Preview */}
       <section className="py-20 px-4 bg-slate-50 dark:bg-slate-900/50">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-5xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-12 max-w-full overflow-hidden"
           >
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4 max-w-full overflow-hidden">
               Simple, transparent pricing
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-full overflow-hidden">
               Start free, upgrade when you need more
             </p>
           </motion.div>
@@ -444,7 +445,8 @@ export default function HomePage() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden bg-slate-900 dark:bg-white rounded-3xl p-12 text-center"
+            className="relative overflow-hidden bg-slate-900 dark:bg-white rounded-3xl p-12 text-center max-w-full"
+            style={{ maxWidth: '100vw' }}
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(20,184,166,0.1),transparent_70%)]"></div>
             <div className="relative">
@@ -470,15 +472,15 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="py-12 px-4 border-t border-slate-200 dark:border-slate-800">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2.5">
-              <Logo className="w-8 h-8" />
-              <span className="font-bold text-slate-900 dark:text-white">Linkly</span>
+        <div className="max-w-6xl mx-auto w-full">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 max-w-full overflow-hidden">
+            <div className="flex items-center gap-2.5 max-w-full overflow-hidden">
+              <Logo className="w-8 h-8 flex-shrink-0" />
+              <span className="font-bold text-slate-900 dark:text-white truncate">Linkly</span>
             </div>
-            <p className="text-sm text-slate-600 dark:text-slate-400">
+            <p className="text-sm text-slate-600 dark:text-slate-400 max-w-full overflow-hidden truncate">
               Built by{' '}
-              <a href="https://github.com/Elmouddenlhoussen" target="_blank" rel="noopener noreferrer" className="font-semibold text-slate-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
+              <a href="https://github.com/Elmouddenlhoussen" target="_blank" rel="noopener noreferrer" className="font-semibold text-slate-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-400 transition-colors truncate">
                 Elmoudden Lhoussaine
               </a>
               {' '}• Full-Stack Developer
