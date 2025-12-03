@@ -111,7 +111,7 @@ export default async function BillingPage() {
                 ))}
               </ul>
               {key === 'pro' && !isPro && (
-                <UpgradeButton email={session!.user.email!} />
+                <UpgradeButton />
               )}
               {key === 'free' && !isPro && (
                 <p className="text-sm text-center text-gray-500">Current plan</p>
